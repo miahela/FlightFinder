@@ -7,4 +7,5 @@ def changeLanguage(driver):
     time.sleep(1)
     driver.find_element(By.ID, "culture-selector-switch-to-english").click()
     time.sleep(1)
-    driver.find_element(By.CSS_SELECTOR, "button[title='Close']").click()
+    driver.find_element(By.ID, "culture-selector-save").click()
+    time.sleep(1)
