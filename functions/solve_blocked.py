@@ -29,14 +29,14 @@ def solve_blocked(self, retry=3):
         # Wait for the px-captcha element styles to fully load
         time.sleep(0.5)
     except BaseException as e:
-        self.logger.info(f'px-captcha element not found')
+        print(f'px-captcha element not found')
         return
-    self.logger.info(f'solve blocked:{self.browser.current_url}, Retry {retry} remaining times')
+    print(f'solve blocked:{self.browser.current_url}, Retry {retry} remaining times')
     template = cv2.imread(os.path.join(settings.TPL_DIR, 'captcha.png'), 0)
     # Set the minimum number of feature points to match value 10
     MIN_MATCH_COUNT = 8 
     if  element:
-        self.logger.info(f'start press and hold')
+        print(f'start press and hold')
         ActionChains(self.browser).click_and_hold(element).perform()
         start_time = time.time()
         while 1:
@@ -72,9 +72,11 @@ def solve_blocked(self, retry=3):
             for m,n in matches:
                 if m.distance < 0.7*n.distance:
                     good.append(m)
-            self.logger.info( "matches are found - %d/%d" % (len(good),MIN_MATCH_COUNT))
+            print( "matches are found - %d/%d" % (len(good),MIN_MATCH_COUNT))
+
             if len(good)>=MIN_MATCH_COUNT:
-                self.logger.info(f'release button')
+                print("realse button")
+                print(f'release button')
                 ActionChains(self.browser).release(element).perform()
                 return
             time.sleep(0.5)
